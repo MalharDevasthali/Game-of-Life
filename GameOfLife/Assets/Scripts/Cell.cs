@@ -19,7 +19,6 @@ public class Cell : MonoBehaviour
     {
         if (vaule == 0)
         {
-
             cellImage.color = Color.black;
         }
         else
