@@ -7,8 +7,8 @@ public class GridHolder : MonoBehaviour
 {
 
     public Cell[] Cells;
-    [SerializeField] private int rows = 6;
-    [SerializeField] private int cols = 6;
+    [SerializeField] private int rows;
+    [SerializeField] private int cols;
     private int[,] array2D;
 
     private void Start()
@@ -20,6 +20,11 @@ public class GridHolder : MonoBehaviour
     {
         SimulateGame();
     }
+
+
+    /// <summary>
+    ///This function Populates empty array with random values for very first time.
+    /// </summary>
     private void Populate2DArray()
     {
         for (int i = 0; i < rows; i++)  //T(n) : O(n^2)
@@ -31,6 +36,10 @@ public class GridHolder : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// actual function which sets color per cell, if value = 1 -> white else black
+    /// </summary>
     private void SimulateGrid()
     {
         for (int i = 0; i < Cells.Length; i++) //T(n) : O(n)
@@ -39,19 +48,21 @@ public class GridHolder : MonoBehaviour
             Cells[i].SetColor();
         }
     }
-
-    private void SimulateGame()
+    /// <summary>
+    /// actual function which takes care of the Simulation and Algorithm
+    /// </summary>
+    private void SimulateGame() //T(n) : O(n^2)
     {
-        var next = new int[rows, cols];
+        var next = new int[rows, cols]; //creating blank array to store the computation result every frame (DisAdv)->Memory Management issue
 
-        for (int i = 0; i < rows; i++)  //T(n) : O(n^2)
+        for (int i = 0; i < rows; i++)
         {
             for (int j = 0; j < cols; j++)
             {
                 int currentCell = array2D[i, j];
                 int neighbours = CountNeighbours(array2D, i, j);
 
-
+                //rules of the 
                 if (currentCell == 0 && neighbours == 3)
                 {
                     next[i, j] = 1;
@@ -66,10 +77,13 @@ public class GridHolder : MonoBehaviour
                 }
             }
         }
-        array2D = next;
-        SimulateGrid();
-
+        array2D = next; //after computing next grid based on current grid , we are setting current grid as next grid
+        SimulateGrid(); //after that simulation will take place i.e. nothing but setting colors on tiles
     }
+
+    /// <summary>
+    /// actual function which takes care for counting the neighbours by looking at -1 , 0 and 1th postion from every cell
+    /// </summary>
     private int CountNeighbours(int[,] grid, int x, int y)
     {
         int sum = 0;
@@ -82,7 +96,7 @@ public class GridHolder : MonoBehaviour
                 sum += grid[col, row];
             }
         }
-        sum -= array2D[x, y];
+        sum -= array2D[x, y]; //we dont want to count ourself as a neighbour so re are reducing it after the computation
         return sum;
     }
 }
