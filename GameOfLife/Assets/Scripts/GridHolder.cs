@@ -62,7 +62,7 @@ public class GridHolder : MonoBehaviour
                 int currentCell = array2D[i, j];
                 int neighbours = CountNeighbours(array2D, i, j);
 
-                //rules of the 
+                //rules of the Game 
                 if (currentCell == 0 && neighbours == 3)
                 {
                     next[i, j] = 1;
@@ -96,7 +96,7 @@ public class GridHolder : MonoBehaviour
                 sum += grid[col, row];
             }
         }
-        sum -= array2D[x, y]; //we dont want to count ourself as a neighbour so re are reducing it after the computation
+        sum -= array2D[x, y]; //we dont want to count ourself as a neighbour so we are reducing it after the computation
         return sum;
     }
 }
