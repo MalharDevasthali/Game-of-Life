@@ -18,6 +18,11 @@ public class GridHolder : MonoBehaviour
     }
     private void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.M)) //TO start Simulation Again
+        {
+            Populate2DArray();
+        }
         SimulateGame();
     }
 
